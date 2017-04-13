@@ -19,24 +19,22 @@
 		<h2>Product</h2>
 		<ul>
 			<li>productId</li>
-			<li>productSellerId</li>
-			<li>productPSA</li>
-			<!--autographs and signatures are typically verified by a 3rd party service unless seller is well known this is known as a PSA.-->
+			<li>productDescription</li>
 			<li>productPrice</li>
+			<li>productFavorites</li>
 		</ul>
 		<h2>Favorites</h2>
 		<ul>
 			<li>favoriteProductId</li>
-			<li>favoriteSellerId</li>
+			<li>favoriteProfileId</li>
 		</ul>
 		<h2>Relation</h2>
 		<ul>
-			<li>One profile can favorite many products</li>
-			<li>Many profiles can favorite many Products/Sellers</li>
-			<li>Many products/sellers can have many favorites</li>
+			<li>Many profiles can favorite many Products</li>
+			<li>Many products can have many favorites</li>
 		</ul>
 		<h1>Conceptual Model Diagram</h1>
-		<img src="images/conceptual-model.svg" alt="Conceptual Model Autographsy">
+		<img src="images/autographsy.svg" alt="erd for autographsy">
 		<!--assuming phase 1 will go here-->
 	</body>
 </html>
