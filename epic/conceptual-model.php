@@ -31,9 +31,9 @@
 		</ul>
 		<h2>Relation</h2>
 		<ul>
-			<li>One profile can buy many products</li>
-			<li>Many profiles can favorite many Products and Sellers</li>
-			<li>Many products and sellers can have many favorites</li>
+			<li>One profile can favorite many products</li>
+			<li>Many profiles can favorite many Products/Sellers</li>
+			<li>Many products/sellers can have many favorites</li>
 		</ul>
 		<h1>Conceptual Model Diagram</h1>
 		<img src="images/conceptual-model.svg" alt="Conceptual Model Autographsy">
