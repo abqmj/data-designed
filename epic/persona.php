@@ -1,4 +1,4 @@
-<!
+<!Doctype HTML>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -15,6 +15,7 @@
 	<li>email: gerritpackersfan1111@netscape.net</li>
 	<li>Favorite sports Team: Green Bay Packers</li>
 	<li>location: New Mexico Originally from Wisconsin</li>
+	<li>tech: Mac Book Pro : OS X 13.1</li>
 	<li> avatar: <img src="images/gavatar.png" alt="GOAT"> </li>
 </ul>
 	</body>
