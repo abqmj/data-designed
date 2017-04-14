@@ -21,9 +21,9 @@
 			<li>productId</li>
 			<li>productDescription</li>
 			<li>productPrice</li>
-			<li>productFavorites</li>
+			<li>productFavorite</li>
 		</ul>
-		<h2>Favorites</h2>
+		<h2>Favorite</h2>
 		<ul>
 			<li>favoriteProductId</li>
 			<li>favoriteProfileId</li>
@@ -33,7 +33,7 @@
 			<li>Many profiles can favorite many Products</li>
 			<li>Many products can have many favorites</li>
 		</ul>
-		<h1>Conceptual Model Diagram</h1>
+		<h1>Conceptual Model ERD</h1>
 		<img src="images/autographsy.svg" alt="erd for autographsy">
 		<!--assuming phase 1 will go here-->
 	</body>
