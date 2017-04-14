@@ -21,7 +21,7 @@ productDescription VARCHAR(2000) UNIQUE NOT NULL,
 productPrice CHAR(10) UNIQUE NOT NULL,
 -- productFavorite not sure on this table dam jeopardy
 INDEX(productId),
-PRIMARY KEY(productId),
+PRIMARY KEY(productId)
 );
 
 CREATE TABLE favorite(
@@ -30,6 +30,6 @@ favoriteProductId INT UNSIGNED NOT NULL,
 INDEX(favoriteProfileId),
 INDEX(favoriteProductId),
 FOREIGN KEY(favoriteProfileId) REFERENCES profile(profileId),
-FOREIGN KEY(favoriteProductId) REFERENCES product(prodcutId),
+FOREIGN KEY(favoriteProductId) REFERENCES product(productId),
 PRIMARY KEY(favoriteProfileId, favoriteProductId)
 );
