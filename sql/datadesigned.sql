@@ -5,11 +5,15 @@ DROP TABLE IF EXISTS profile;
 CREATE TABLE profile (
 profileId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 profileActivationToken CHAR(32),
-profileUsername VARCHAR(32) NOT NULL,
+profileAtHandle VARCHAR(32) NOT NULL,
 profileEmail VARCHAR(128) NOT NULL,
 profilePhone VARCHAR(32),
 profileHash CHAR(128) NOT NULL,
 profileSalt CHAR(64) NOT NULL,
+INDEX (profileId),
+INDEX (profileAtHandle),
+INDEX (profileEmail),
+INDEX (profilePhone),
 UNIQUE(profileEmail),
 UNIQUE(profilePhone),
 PRIMARY KEY(profileId)

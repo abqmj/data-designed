@@ -10,7 +10,7 @@
 		<ul>
 			<li>profileId</li>
 			<li>profileActivationToken</li>
-			<li>profileUsername</li>
+			<li>profileAtHandle</li>
 			<li>profileHash</li>
 			<li>profileSalt</li>
 			<li>profileEmail</li>
