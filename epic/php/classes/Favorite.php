@@ -6,7 +6,7 @@ namespace mjordan30\datadesigned;
  * version 4.2.0
  **/
 
-class Favorite implements \JsonSerializable {
+class Favorite {
 	/** use ValidateDate; I dont have dates in my conceptual model **/
 	/** id for favorite product primary key **/
 	private $FavoriteProductId;

@@ -50,14 +50,14 @@ class Profile {
 	}
 
 	/**
-	 * @param int|null $newProfileID
+	 * @param int|null $newProfileId
 	 **/
-	public function setProfileId($newProfileID) {
+	public function setProfileId($newProfileId) {
 		$newProfileId = filter_var($newProfileId, FILTER_VALIDATE_INT);
-		if($newProfileID === false) {
+		if($newProfileId === false) {
 			throw(new \UnexpectedValueException("profile id is not a valid integer"));
 		}
-		$this->profileId = intval($newProfileID);
+		$this->profileId = intval($newProfileId);
 	}
 	public function getProfileAtHandle() {
 		return ($this->profileAtHandle);
@@ -74,7 +74,7 @@ class Profile {
 		 **/
 	public function setProfileActivationToken(?string $newProfileActivationToken): void {
 		if($newProfileActivationToken === null) {
-		$this->ProfileActivationToken = null;
+		$this->profileActivationToken = null;
 		return;
 		}
 		$newProfileActivationToken = strtolower(trim($newProfileActivationToken));
@@ -104,7 +104,7 @@ class Profile {
 		if(strlen($newProfileEmail) > 128){
 			throw+(new \RangeException("Your Email is HUGELY in length"));
 		}
-		$this->profileEmail = $newProfileEmail
+		$this->profileEmail = $newProfileEmail;
 	}
 	/**
 	 * @return null|string
@@ -175,6 +175,3 @@ public function setProfilePhone(?string $newProfilePhone): void {
 				}
 
 		}
-	}
-
-}
