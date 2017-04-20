@@ -1,5 +1,5 @@
 <?php
-namespace mjordan30\datadesigned;
+namespace some\thing\else;
 
 /**
  * Not sure if this is the correct namespace dir

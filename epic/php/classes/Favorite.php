@@ -1,5 +1,5 @@
 <?php
-namespace mjordan30\datadesigned;
+namespace some\thing\else;
 /**
  *Favorite is a table displaying users favorite memorabilia.
  * @author Michael Jordan <mikesjordan@gmail.com>
