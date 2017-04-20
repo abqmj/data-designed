@@ -43,14 +43,19 @@ class Profile {
 	 **/
 	private $profileSalt;
 	/**
-	 * @return int for profile
+	 * This is the accessor method for ProfileId
+	 * returns value for int of profile id (or naaaaaaah if new profile)
 	 **/
 	public function getProfileId(): int {
 		return ($this->profileId);
 	}
 
 	/**
-	 * @param int|null $newProfileId
+	 * This is the mutator method for ProfileId (where entities become X-Men)
+	 *
+	 * @param documents /the value int|null for $newProfileId of profileId
+	 * @throws \RangeException if $newProfileId is not positive
+	 * @throws \TypeError if $newProfileId is not an int
 	 **/
 	public function setProfileId($newProfileId) {
 		$newProfileId = filter_var($newProfileId, FILTER_VALIDATE_INT);
@@ -59,9 +64,23 @@ class Profile {
 		}
 		$this->profileId = intval($newProfileId);
 	}
+	/**
+	 * accessor method for profileAtHandle
+	 *
+	 * @return string value of getProfileAtHandle
+	 */
 	public function getProfileAtHandle() {
 		return ($this->profileAtHandle);
 	}
+
+	/**
+	 * mutator method for profileAtHandle
+	 *
+	 * @param string $newProfileAtHandle new value of profileAtHandle
+	 * @throws \InvalidArgumentException if $newProfileAtHandle is not a string
+	 * @throws \RangeException if $newProfileAtHandle is > 32 chars
+	 * @throws \TypeError if $newProfileAtHandle is not a string
+	 **/
 	public function setProfileAtHandle($newProfileAtHandle) {
 		$newProfileAtHandle = filter_var($newProfileAtHandle, FILTER_VALIDATE_INT);
 		if($newProfileAtHandle === false) {
@@ -69,8 +88,22 @@ class Profile {
 		}
 		$this->profileAtHandle = intval($newProfileAtHandle);
 	}
+
+	/**
+	 * accessor method for ProfileActivationToken
+	 *
+	 * @return string value of the ProfileActivationToken
+	 */
+	public function getProfileActivationToken(): string {
+		return ($this->profileActivationToken);
+	}
 		/**
-		 * @param null|string $newProfileActivationToken
+		 * mutator method for ProfileActivationToken
+		 *
+		 * @param string $newProfileActivationToken
+		 * @throws \InvalidArgumentException if the token is not a string or insecure
+		 * @throws \RangeException if the token is not exactly 32 chars
+		 * @throws \TypeError if the newProfileActivationToken is not a string
 		 **/
 	public function setProfileActivationToken(?string $newProfileActivationToken): void {
 		if($newProfileActivationToken === null) {
@@ -87,13 +120,20 @@ class Profile {
 		$this->profileActivationToken = $newProfileActivationToken;
 	}
 	/**
-	 * @return string
-	 */
+	 * accessor method for email
+	 *
+	 * @return string value of email
+	 **/
 	public function getProfileEmail(): string {
 		return $this->profileEmail;
 	}
 	/**
-	 * @param string $newProfileEmail
+	 * mutator method for email
+	 *
+	 * @param string $newProfileEmail new value of email
+	 * @throws \InvalidArgumentException if $newEmail is not a valid email or insecure
+	 * @throws \RangeException if $newEmail is > 128 characters
+	 * @throws \TypeError if $newEmail is not a string
 	 **/
 	public function setProfileEmail(string $newProfileEmail): void {
 		$newProfileEmail = trim($newProfileEmail);
@@ -107,13 +147,20 @@ class Profile {
 		$this->profileEmail = $newProfileEmail;
 	}
 	/**
-	 * @return null|string
+	 * accessor method for phone
+	 *
+	 * @return string value of phone or null
 	 **/
 	public function getProfilePhone(): ?string {
 			return ($this->profilePhone);
 		}
 		/**
-		 * @param null|string $newProfilePhone
+		 * mutator method for phone
+		 *
+		 * @param string $newProfilePhone new value of profilePhone
+		 * @throws \InvalidArgumentException if $newPhone is not a string or insecure
+		 * @throws \RangeException if $newPhone is > 32 characters
+		 * @throws \TypeError if $newPhone is not a string
 		 **/
 public function setProfilePhone(?string $newProfilePhone): void {
 		if($newProfilePhone === null){
@@ -131,13 +178,19 @@ public function setProfilePhone(?string $newProfilePhone): void {
 		$this->profilePhone = $newProfilePhone;
 		}
 		/**
-		 * @return string
+		 * accessor method for profileHash
+		 * @return string value of ProfileHash
 		 **/
 		public function getProfileHash(): string {
 	return $this->profileHash;
 		}
 		/**
+		 * mutator method for profile hash password
+		 *
 		 * @param string $newProfileHash
+		 * @throws \InvalidArgumentException if the hash is not secure
+		 * @throws \RangeException if the hash is not 128 characters
+		 * @throws \TypeError if profile hash is not a string
 		 **/
 		public function setProfileHash(string $newProfileHash): void {
 			$newProfileHash = trim($newProfileHash);
@@ -154,13 +207,19 @@ public function setProfilePhone(?string $newProfilePhone): void {
 				$this->profileHash = $newProfileHash;
 			}
 		/**
-		 * @return string
+		 * accessor method for ProfileSalt
+		 * @return string representation of the salt hex
 		 **/
 			public function getProfileSalt(): string {
 			return $this->profileSalt;
 		}
 		/**
+		 * mutator method for profile salt
+		 *
 		 * @param string $newProfileSalt
+		 * @throws \InvalidArgumentException if the salt is not secure
+		 * @throws \RangeException if the salt is not 64 characters
+		 * @throws \TypeError if profile salt is not a string
 		 **/
 		public function setProfileSalt(string $newProfileSalt): void {
 				$newProfileSalt = trim($newProfileSalt);
