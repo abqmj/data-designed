@@ -1,5 +1,6 @@
 <?php
-namespace some\thing\else;
+namespace mjordan30\public_html\datadesigned;
+require_once("autoload.php");
 /**
  *Favorite is a table displaying users favorite memorabilia.
  * @author Michael Jordan <mikesjordan@gmail.com>
@@ -9,12 +10,12 @@ namespace some\thing\else;
 class Favorite {
 	/** use ValidateDate; I dont have dates in my conceptual model **/
 	/** id for favorite product primary key **/
-	private $FavoriteProductId;
+	private $favoriteProductId;
 	/**
 	 *profile id favorites product
 	 * @var int $favoriteProfileId
 	 **/
-	private $FavoriteProfileId;
+	private $favoriteProfileId;
 	/**
 	 * constructor for favorite
 	 **/

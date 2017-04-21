@@ -1,5 +1,5 @@
 <?php
-namespace some\thing\else;
+namespace mjordan30\public_html\datadesigned;
 /**
  * Trait for validating the date in mySQL Date
  *
