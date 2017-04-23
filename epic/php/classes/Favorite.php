@@ -18,6 +18,11 @@ class Favorite {
 	private $favoriteProfileId;
 	/**
 	 * constructor for favorite
+	 *
+	 * @param int $newFavoriteProductId id of the parent profile
+	 * @param int $newFavoriteProfileId id of the parent product
+	 * @throws \Exception if the obvious occurs
+	 * @throws \TypeError if data types violate type hints?
 	 **/
 	public function __construct(int $newFavoriteProfileId, int $newFavoriteProductId){
 		try {

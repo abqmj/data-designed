@@ -1,6 +1,6 @@
 <?php
 /**
- * This will be my very first autoloader HMB
+ * This will be my very first auto-loader HMB
  *
  * God willing it will load classes via the prefix and class name.
  * @param string $class fully legit class name to load
@@ -19,7 +19,7 @@ spl_autoload_register(function($class) {
 	// does the class use the namespace prefix?
 	$len = strlen($prefix);
 	if (strncmp($prefix, $class, $len) !== 0) {
-		// no, move to the next registered autoloader
+		// no, move to the next registered auto-loader
 		return;
 	}
 

@@ -43,6 +43,37 @@ class Profile {
 	 **/
 	private $profileSalt;
 	/**
+	 * Constructor for this class
+	 *
+	 * @param int|null $newProfileId of this profile or null if new
+	 * @param string $newProfileActivationToken token to safe guard
+	 * @param string $newProfileAtHandle contains new handle
+	 * @param string $newProfileEmail =email
+	 * @param string $newProfilePhone =phone
+	 * @param string $newProfileHash hash for pw
+	 * @param string $newProfileSalt salt for pw
+	 * @throws \InvalidArgumentException if data not valid
+	 * @throws \RangeException if data too long or negative int
+	 * @throws \TypeError if data outta bounds
+	 * @throws \Exception if a different exception occurs
+	 * @Documentation php.net
+	 **/
+	public function __construct(?int $newProfileId, ?string $newProfileActivationToken, ?string $newProfileAtHandle, string $newProfileEmail, ?string $newProfilePhone, string $newProfileHash, string $newProfileSalt) {
+		try {
+			$this->setProfileId($newProfileId);
+			$this->setProfileActivationToken($newProfileActivationToken);
+			$this->setProfileAtHandle($newProfileAtHandle);
+			$this->setProfileEmail($newProfileEmail);
+			$this->setProfilePhone($newProfilePhone);
+			$this->setProfileHash($newProfileHash);
+			$this->setProfileSalt($newProfileSalt);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception){
+			//determine the exception
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
+	/**
 	 * This is the accessor method for ProfileId
 	 * returns value for int of profile id (or naaaaaaah if new profile)
 	 **/
