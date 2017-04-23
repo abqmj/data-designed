@@ -24,6 +24,30 @@ class Product {
 	private $productPrice;
 
 	/**
+	 * Product constructor.
+	 * @param int|null $newProductId id of this product
+	 * @param string $newProductDescription contains product description
+	 * @param string $newProductPrice contains product price
+	 * @throws \InvalidArgumentException if data is not valid
+	 * @throws \RangeException if data is too long or negative
+	 * @throws \TypeError if data out of bounds
+	 * @throws \exception if another exception occurs
+	 * @documentation php.net
+	 */
+	public function __construct(?int $newProductId, string $newProductDescription, string $newProductPrice) {
+		try {
+			$this->setProductId($newProductId);
+			$this->setProductDescription($newProductDescription);
+			$this->setProductPrice($newProductPrice);
+		}
+		// what exception is thrown
+		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
+
+	/**
 	 * accessor method for productId
 	 * @return int|null value of productId
 	 */

@@ -21,6 +21,8 @@ class Favorite {
 	 *
 	 * @param int $newFavoriteProductId id of the parent profile
 	 * @param int $newFavoriteProfileId id of the parent product
+	 * @throws \InvalidArgumentException if data is not valid
+	 * @throws \RangeException if data is too long or negative
 	 * @throws \Exception if the obvious occurs
 	 * @throws \TypeError if data types violate type hints?
 	 **/
