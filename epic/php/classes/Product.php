@@ -6,7 +6,7 @@ require_once("autoload.php");
  * @author Michael Jordan <mikesjordan@gmail.com>
  * @version 4.2.0
  **/
-class Product {
+class Product implements \JsonSerializable {
 	/**
 	 * id for this product; this is the primary key
 	 * @var int $productId
@@ -117,4 +117,12 @@ class Product {
 			$this->productPrice = $newProductPrice;
 		}
 
-	}
+	/**
+	 * formats vars for json
+	 * @return array of $this
+	 */
+		public function jsonSerialize() {
+			$fields = get_object_vars($this);
+				return($fields);
+		}
+}

@@ -7,7 +7,7 @@ require_once("autoload.php");
  * version 4.2.0
  **/
 
-class Favorite {
+class Favorite implements \JsonSerializable {
 	/** use ValidateDate; I dont have dates in my conceptual model **/
 	/** id for favorite product primary key **/
 	private $favoriteProductId;
@@ -63,4 +63,12 @@ class Favorite {
 		$this->favoriteProductId = $newFavoriteProductId;
 	}
 
+	/**
+	 * not 100% if this is correct need to read more documentation just getting it outta the way
+	 * @return array of variables $this
+	 */
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+		return ($fields);
+	}
 }

@@ -6,7 +6,7 @@ namespace mjordan30\public_html\datadesigned;
  * @author Michael Jordan <mikesjordan@gmail.com>
  * @version 4.2.0
  **/
-class Profile {
+class Profile implements \JsonSerializable {
 	/**
 	 * this is the primary key for the profile
 	 * @var int $profileId
@@ -263,5 +263,11 @@ public function setProfilePhone(?string $newProfilePhone): void {
 				}
 				$this->profileSalt = $newProfileSalt;
 				}
-
-		}
+	/**
+	 * I think this is json
+	 * @return array resulting state variables to serialize
+	 */
+				public function jsonSerialize() {
+					return (get_object_vars($this));
+				}
+}
