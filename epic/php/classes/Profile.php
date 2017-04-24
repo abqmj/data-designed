@@ -42,6 +42,7 @@ class Profile implements \JsonSerializable {
 	 * @var $profileSalt
 	 **/
 	private $profileSalt;
+
 	/**
 	 * Constructor for this class
 	 *
@@ -67,12 +68,13 @@ class Profile implements \JsonSerializable {
 			$this->setProfilePhone($newProfilePhone);
 			$this->setProfileHash($newProfileHash);
 			$this->setProfileSalt($newProfileSalt);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception){
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			//determine the exception
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
+
 	/**
 	 * This is the accessor method for ProfileId
 	 * returns value for int of profile id (or naaaaaaah if new profile)
@@ -95,6 +97,7 @@ class Profile implements \JsonSerializable {
 		}
 		$this->profileId = intval($newProfileId);
 	}
+
 	/**
 	 * accessor method for profileAtHandle
 	 *
@@ -128,18 +131,19 @@ class Profile implements \JsonSerializable {
 	public function getProfileActivationToken(): string {
 		return ($this->profileActivationToken);
 	}
-		/**
-		 * mutator method for ProfileActivationToken
-		 *
-		 * @param string $newProfileActivationToken
-		 * @throws \InvalidArgumentException if the token is not a string or insecure
-		 * @throws \RangeException if the token is not exactly 32 chars
-		 * @throws \TypeError if the newProfileActivationToken is not a string
-		 **/
+
+	/**
+	 * mutator method for ProfileActivationToken
+	 *
+	 * @param string $newProfileActivationToken
+	 * @throws \InvalidArgumentException if the token is not a string or insecure
+	 * @throws \RangeException if the token is not exactly 32 chars
+	 * @throws \TypeError if the newProfileActivationToken is not a string
+	 **/
 	public function setProfileActivationToken(?string $newProfileActivationToken): void {
 		if($newProfileActivationToken === null) {
-		$this->profileActivationToken = null;
-		return;
+			$this->profileActivationToken = null;
+			return;
 		}
 		$newProfileActivationToken = strtolower(trim($newProfileActivationToken));
 		if(ctype_xdigit($newProfileActivationToken) === false) {
@@ -150,6 +154,7 @@ class Profile implements \JsonSerializable {
 		}
 		$this->profileActivationToken = $newProfileActivationToken;
 	}
+
 	/**
 	 * accessor method for email
 	 *
@@ -158,6 +163,7 @@ class Profile implements \JsonSerializable {
 	public function getProfileEmail(): string {
 		return $this->profileEmail;
 	}
+
 	/**
 	 * mutator method for email
 	 *
@@ -172,29 +178,31 @@ class Profile implements \JsonSerializable {
 		if(empty($newProfileEmail) === true) {
 			throw(new \InvalidArgumentException("profile email is empty or insecure"));
 		}
-		if(strlen($newProfileEmail) > 128){
+		if(strlen($newProfileEmail) > 128) {
 			throw+(new \RangeException("Your Email is HUGELY in length"));
 		}
 		$this->profileEmail = $newProfileEmail;
 	}
+
 	/**
 	 * accessor method for phone
 	 *
 	 * @return string value of phone or null
 	 **/
 	public function getProfilePhone(): ?string {
-			return ($this->profilePhone);
-		}
-		/**
-		 * mutator method for phone
-		 *
-		 * @param string $newProfilePhone new value of profilePhone
-		 * @throws \InvalidArgumentException if $newPhone is not a string or insecure
-		 * @throws \RangeException if $newPhone is > 32 characters
-		 * @throws \TypeError if $newPhone is not a string
-		 **/
-public function setProfilePhone(?string $newProfilePhone): void {
-		if($newProfilePhone === null){
+		return ($this->profilePhone);
+	}
+
+	/**
+	 * mutator method for phone
+	 *
+	 * @param string $newProfilePhone new value of profilePhone
+	 * @throws \InvalidArgumentException if $newPhone is not a string or insecure
+	 * @throws \RangeException if $newPhone is > 32 characters
+	 * @throws \TypeError if $newPhone is not a string
+	 **/
+	public function setProfilePhone(?string $newProfilePhone): void {
+		if($newProfilePhone === null) {
 			$this->profilePhone = null;
 			return;
 		}
@@ -207,62 +215,102 @@ public function setProfilePhone(?string $newProfilePhone): void {
 			throw(new \RangeException("Phone number is too long"));
 		}
 		$this->profilePhone = $newProfilePhone;
+	}
+
+	/**
+	 * accessor method for profileHash
+	 * @return string value of ProfileHash
+	 **/
+	public function getProfileHash(): string {
+		return $this->profileHash;
+	}
+
+	/**
+	 * mutator method for profile hash password
+	 *
+	 * @param string $newProfileHash
+	 * @throws \InvalidArgumentException if the hash is not secure
+	 * @throws \RangeException if the hash is not 128 characters
+	 * @throws \TypeError if profile hash is not a string
+	 **/
+	public function setProfileHash(string $newProfileHash): void {
+		$newProfileHash = trim($newProfileHash);
+		$newProfileHash = strtolower($newProfileHash);
+		if(empty($newProfileHash) === true) {
+			throw(new \InvalidArgumentException("profile pw hash empty or insecure"));
 		}
-		/**
-		 * accessor method for profileHash
-		 * @return string value of ProfileHash
-		 **/
-		public function getProfileHash(): string {
-	return $this->profileHash;
+		if(!ctype_xdigit($newProfileHash)) {
+			throw(new \InvalidArgumentException("profile pw hash is empty or insecure"));
 		}
-		/**
-		 * mutator method for profile hash password
-		 *
-		 * @param string $newProfileHash
-		 * @throws \InvalidArgumentException if the hash is not secure
-		 * @throws \RangeException if the hash is not 128 characters
-		 * @throws \TypeError if profile hash is not a string
-		 **/
-		public function setProfileHash(string $newProfileHash): void {
-			$newProfileHash = trim($newProfileHash);
-			$newProfileHash = strtolower($newProfileHash);
-			if(empty($newProfileHash) === true) {
-				throw(new \InvalidArgumentException("profile pw hash empty or insecure"));
-			}
-			if(!ctype_xdigit($newProfileHash)) {
-				throw(new \InvalidArgumentException("profile pw hash is empty or insecure"));
-			}
-				if(strlen($newProfileHash) !== 128) {
-					throw(new \RangeException("profile hash must be 128 chars"));
-				}
-				$this->profileHash = $newProfileHash;
-			}
-		/**
-		 * accessor method for ProfileSalt
-		 * @return string representation of the salt hex
-		 **/
-			public function getProfileSalt(): string {
-			return $this->profileSalt;
+		if(strlen($newProfileHash) !== 128) {
+			throw(new \RangeException("profile hash must be 128 chars"));
 		}
-		/**
-		 * mutator method for profile salt
-		 *
-		 * @param string $newProfileSalt
-		 * @throws \InvalidArgumentException if the salt is not secure
-		 * @throws \RangeException if the salt is not 64 characters
-		 * @throws \TypeError if profile salt is not a string
-		 **/
-		public function setProfileSalt(string $newProfileSalt): void {
-				$newProfileSalt = trim($newProfileSalt);
-				$newProfileSalt = strtolower($newProfileSalt);
-				if(!ctype_xdigit($newProfileSalt)) {
-					throw(new \InvalidArgumentException("profile pw salt is empty or insecure"));
-				}
-				if(strlen($newProfileSalt) !== 64) {
-					throw(new \RangeException("profile salt must be 128 chars"));
-				}
-				$this->profileSalt = $newProfileSalt;
-				}
+		$this->profileHash = $newProfileHash;
+	}
+
+	/**
+	 * accessor method for ProfileSalt
+	 * @return string representation of the salt hex
+	 **/
+	public function getProfileSalt(): string {
+		return $this->profileSalt;
+	}
+
+	/**
+	 * mutator method for profile salt
+	 *
+	 * @param string $newProfileSalt
+	 * @throws \InvalidArgumentException if the salt is not secure
+	 * @throws \RangeException if the salt is not 64 characters
+	 * @throws \TypeError if profile salt is not a string
+	 **/
+	public function setProfileSalt(string $newProfileSalt): void {
+		$newProfileSalt = trim($newProfileSalt);
+		$newProfileSalt = strtolower($newProfileSalt);
+		if(!ctype_xdigit($newProfileSalt)) {
+			throw(new \InvalidArgumentException("profile pw salt is empty or insecure"));
+		}
+		if(strlen($newProfileSalt) !== 64) {
+			throw(new \RangeException("profile salt must be 128 chars"));
+		}
+		$this->profileSalt = $newProfileSalt;
+	}
+
+	/**
+	 * inserting profile into mySQL via PDO
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL errors
+	 * @throws \TypeError if $pdo is not a pdo connection object
+	 * no TypeError throw in dylans example on github??
+	 */
+	public function insert(\PDO $pdo): void {
+		// enforces profile id null (wont insert a profile if profile already exists)
+		if($this->profileId !== null) {
+			throw(new \PDOException("not a new profile"));
+		}
+		// creates query template
+		$query = "INSERT INTO profile(profileActivationToken, profileAtHandle, profileEmail, profilePhone, profileHash, profileSalt) VALUES (:profileActivationToken, :profileAtHandle, :profileEmail, :profilePhone, :profileHash, :profileSalt)";
+		$statement = $pdo->prepare($query);
+		// binds the member vars to the place holders in the template
+		$parameters = ["profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle, "profileEmail" => $this->profileEmail, "profilePhone" => $this->profilePhone, "profileHash" => $this->profileHash, "profileSalt" => $this->profileSalt];
+		$statement->execute($parameters);
+		// updates null profileId with what mySQL provided
+		$this->profileId = intval($pdo->lastInsertId());
+	}
+
+	public function delete(\PDO $pdo): void {
+		// enforces if profileId is not null
+		if($this->profileId === null) {
+			throw (new \PDOException("unable to delete a profile that does not exist"));
+		}
+		// creates query template
+		$query = "DELETE FROM profile WHERE profileId = :profileId";
+		$statement->execute($parameters);
+		// bind the member vars to the place holders
+		$parameters = ["profileId" => $this->profileId];
+		$statement->execute($parameters);
+	}
 	/**
 	 * I think this is json
 	 * @return array resulting state variables to serialize
