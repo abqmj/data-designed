@@ -299,6 +299,12 @@ class Profile implements \JsonSerializable {
 		$this->profileId = intval($pdo->lastInsertId());
 	}
 
+	/**
+	 * deletes profile from sql
+	 *
+	 * @param \PDO $pdo connection object
+	 * @throws \PDOException when sql errors occur
+	 */
 	public function delete(\PDO $pdo): void {
 		// enforces if profileId is not null
 		if($this->profileId === null) {
@@ -306,11 +312,31 @@ class Profile implements \JsonSerializable {
 		}
 		// creates query template
 		$query = "DELETE FROM profile WHERE profileId = :profileId";
-		$statement->execute($parameters);
+		$statement = $pdo->$pdo->prepare($query);
 		// bind the member vars to the place holders
 		$parameters = ["profileId" => $this->profileId];
 		$statement->execute($parameters);
 	}
+
+	/**
+	 * updates profile from sql
+	 * @param \PDO $pdo connection object
+	 * @throws \PDOException when sql errors happen
+	 */
+	public function update(\PDO $pdo): void {
+		if($this->profileId === null) {
+			throw(new \PDOException("unable to delete a profile that does not exist"));
+			}
+// query table
+$query = "UPDATE profile SET profileActivationToken = :profileActivationToken, profileAtHandle = :profileAtHandle, profileEmail = :profileEmail, profilePhone = :profilePhone, profileHash = :profileHash, profileSalt = :profileSalt WHERE profileId = :profileId";
+$statement = $pdo->prepare($query);
+// bind vars to place holders
+$parameters = ["profileId" => $this->profileId, "profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle, "profileEmail" => $this->profileEmail, "profilePhone" => $this->profilePhone, "profileHash" => $this->profileHash, "profileSalt" => $this->profileSalt];
+$statement->execute($parameters);
+		}
+		public statis function getProfileByProfileId(\PDO $pdo, int $profileId): ?Profile {
+
+}
 	/**
 	 * I think this is json
 	 * @return array resulting state variables to serialize
