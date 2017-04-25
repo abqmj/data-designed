@@ -312,7 +312,7 @@ class Profile implements \JsonSerializable {
 		}
 		// creates query template
 		$query = "DELETE FROM profile WHERE profileId = :profileId";
-		$statement = $pdo->$pdo->prepare($query);
+		$statement = $pdo->prepare($query);
 		// bind the member vars to the place holders
 		$parameters = ["profileId" => $this->profileId];
 		$statement->execute($parameters);
@@ -334,7 +334,7 @@ $statement = $pdo->prepare($query);
 $parameters = ["profileId" => $this->profileId, "profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle, "profileEmail" => $this->profileEmail, "profilePhone" => $this->profilePhone, "profileHash" => $this->profileHash, "profileSalt" => $this->profileSalt];
 $statement->execute($parameters);
 		}
-		public statis function getProfileByProfileId(\PDO $pdo, int $profileId): ?Profile {
+		public static function getProfileByProfileId(\PDO $pdo, int $profileId): ?Profile {
 
 }
 	/**
