@@ -64,9 +64,32 @@ class Favorite implements \JsonSerializable {
 	}
 
 	/**
+	 * inserts the favorite into sql
+	 *
+	 * @param \PDO $pdo connection object
+	 * @throws \PDOException when sql throws error
+	 **/
+	public function insert(\PDO $pdo) : void {
+		// checks if object exist before inserting
+			if($this->favoriteProfileId === null || $this->favoriteProductId === null) {
+				throw(new \PDOException("not a valid favorite"));
+				}
+				// query template created
+				$query = "INSERT INTO favorite(favoriteProfileId,favoriteProductId) VALUES(:favoriteProfileId, favoriteProductId)";
+			$statement = $pdo->prepare($query);
+			// bind the vars to the place holders
+			$parameters = ["favoriteProfileId" => $this->favoriteProfileId, "favoriteProductId" => $this->favoriteProductId];
+			$statement->execute($parameters);
+}
+public function delete(\PDO $pdo) : void {
+		if($this->favoriteProfileId === null || $this->favoriteProductId === null) {
+			throw(new \PDOException("not a valid favorite"));
+		}
+		$query = "DELETE FROM favorite WHERE favoriteProfileId = :favoriteProfileId AND favoriteProductId = :favoriteProductId";}
+	/**
 	 * not 100% if this is correct need to read more documentation just getting it outta the way
 	 * @return array of variables $this
-	 */
+	 **/
 	public function jsonSerialize() {
 		$fields = get_object_vars($this);
 		return ($fields);

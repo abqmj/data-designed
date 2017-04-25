@@ -334,8 +334,37 @@ $statement = $pdo->prepare($query);
 $parameters = ["profileId" => $this->profileId, "profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle, "profileEmail" => $this->profileEmail, "profilePhone" => $this->profilePhone, "profileHash" => $this->profileHash, "profileSalt" => $this->profileSalt];
 $statement->execute($parameters);
 		}
-		public static function getProfileByProfileId(\PDO $pdo, int $profileId): ?Profile {
 
+	/**
+	 * GET SOME profile by profileId
+	 *
+	 * @param \PDO $pdo connection object
+	 * @param int $profileId profileId to search for
+	 * @return Profile|null profile or naaaaaah if not found
+	 * @throws \PDOException when sql errors
+	 */
+		public static function getProfileByProfileId(\PDO $pdo, int $profileId): ?Profile {
+		//sanitize profile id before searching
+			if($profileId <= 0) {
+			throw(new \PDOException("profile id is not positive"));
+		}
+		// create query template
+		$query = "SELECT profileId, profileActivationToken, profileAtHandle, profileEmail, profilePhone, profileHash, profileSalt FROM profile WHERE profileId = :profileId";
+		$statement = $pdo->prepare($query);
+		// bind the profile id to place holders
+			$parameters =["profileId" => $profileId];
+			$statement->execute($parameters);
+		try {
+			$profile = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$profile = new Profile($row["profileId"], $row["profileActivationToken"], $row["profileAtHandle"], $row["profileEmail"], $row["profilePhone"], $row["profileHash"], $row["profileSalt"]);
+			}
+		} catch(\Exception $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($profile);
 }
 	/**
 	 * I think this is json
