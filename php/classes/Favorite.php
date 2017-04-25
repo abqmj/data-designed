@@ -81,11 +81,48 @@ class Favorite implements \JsonSerializable {
 			$parameters = ["favoriteProfileId" => $this->favoriteProfileId, "favoriteProductId" => $this->favoriteProductId];
 			$statement->execute($parameters);
 }
+
+	/**
+	 * deletes favorite from sql
+	 *
+	 * @param \PDO $pdo connection object
+	 * @throws \PDOException when sql errors occur
+	 */
 public function delete(\PDO $pdo) : void {
 		if($this->favoriteProfileId === null || $this->favoriteProductId === null) {
+			// ensure object exist
 			throw(new \PDOException("not a valid favorite"));
 		}
-		$query = "DELETE FROM favorite WHERE favoriteProfileId = :favoriteProfileId AND favoriteProductId = :favoriteProductId";}
+		// creates query table
+		$query = "DELETE FROM favorite WHERE favoriteProfileId = :favoriteProfileId AND favoriteProductId = :favoriteProductId";
+		$statement = $pdo->prepare($query);
+		// michael grey the vars to the place holders
+		$parameters = ["favoriteProfileId" => $this->favoriteProfileId, "favoriteProductId" => $this->favoriteProductId];
+		$statement->execute($parameters);
+	}
+	public static function getFavoriteByFavoriteProductIdAndFavoriteProfileId(\PDO $pdo, int $favoriteProfileId, int $favoriteProductId) : ?Favorite {
+	if($favoriteProfileId <= 0) {
+		throw(new \PDOException("profile id is not positive"));
+	}
+		if($favoriteProductId <= 0){
+			throw(new \PDOException("product Id is not valid"));
+		}
+		$query = "SELECT favoriteProfileId, favoriteProductId FROM favorite WHERE favoriteProfileId = :favoriteProfileId AND favoriteProductId = :favoriteProductId";
+		$statement = $pdo->prepare($query);
+		$parameters = ["favoriteProfileId" => $favoriteProfileId, "favoriteProductId" => $favoriteProductId];
+		$statement->execute($parameters);
+		try {
+			$favorite = null;
+				$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false){
+				$favorite = new Favorite($row["favoriteProfileId"], $row["favoriteProductID"]);
+			}
+		} catch(\Exception $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($favorite);
+	}
 	/**
 	 * not 100% if this is correct need to read more documentation just getting it outta the way
 	 * @return array of variables $this
