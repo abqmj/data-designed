@@ -366,6 +366,34 @@ $statement->execute($parameters);
 		}
 		return ($profile);
 }
+public static function getProfileByProfileAtHandle(\PDO $pdo, string $profileAtHandle) : \SPLFixedArray {
+			//sanitize the at handle before searching
+	$profileAtHandle = trim($profileAtHandle);
+	$profileAtHandle = filter_var($profileAtHandle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	if(empty($profileAtHandle) === true) {
+		throw(new \PDOException("not a valid at handle"));
+	}
+// creates query table
+	$query = "SELECT profileId, profileActivationToken, profileAtHandle, profileEmail, profilePhone, profileHash, profileSalt FROM profile Where profileAtHandle = :profileAtHandle";
+	$statement = $pdo->prepare($query);
+	// binds the at handle to place holder
+	$parameters = ["profileAtHandle" => $profileAtHandle];
+	$statement->execute("$parameters");
+
+	$profiles = new \SPLFixedArray($statement->rowCount());
+	$statement->setFetchMode(\PDO::FETCH_ASSOC);
+
+	while (($row = $statement->fetch()) !== false) {
+		try {
+			$profile = new Profile($row["profileId"], $row["profileActivationToken"], $row["profileAtHandle"], $row["profileEmail"], $row["profileHash"], $row["profilePhone"], $row["profileSalt"]);
+			$profiles[$profiles->key()] = $profile;
+			$profiles->next();
+		} catch(\Exception $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+	}
+	return ($profiles);
+}
 	/**
 	 * I think this is json
 	 * @return array resulting state variables to serialize
