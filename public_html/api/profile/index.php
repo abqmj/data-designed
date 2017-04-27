@@ -14,7 +14,7 @@ use mjordan30\public_html\datadesigned\ {
 /**
  * api for profile
  *
- * @author george Gkephart
+ * @inspiration Gkephart
  */
 // verify session is dank if not active start it
 if(session_status() !== PHP_SESSION_ACTIVE) {
@@ -26,7 +26,7 @@ $reply->status = 200;
 $reply->data = null;
 try {
 	// this would grab the mySQL connection
-	// $pdo = connectToEncryptedMySql(".ini file goes here");
+	 $pdo = connectToEncryptedMySql(".ini file goes here");
 	// determine which http method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $S_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 	// sanitize input
@@ -51,6 +51,7 @@ try {
 					$reply->data = $profile;
 				}
 			}
+		}
 
 		} elseif($method === "PUT") {
 			// enforce the user is signed in and only trying to edit their own profile
@@ -100,7 +101,7 @@ try {
 				}
 				//salt and hash the new password and update the profile object
 				$newPasswordSalt = bin2hex(random_bytes(16));
-				$newpasswordHash = hash_pbkdf2("sha512", $requestObject->newProfilePassword, $newPasswordSalt, 262144);
+				$newPasswordHash = hash_pbkdf2("sha512", $requestObject->newProfilePassword, $newPasswordSalt, 262144);
 				$profile->setProfileHash($newPasswordHash);
 				$profile->setProfileSalt($newPasswordSalt);
 			}
@@ -126,7 +127,6 @@ try {
 			$reply->status = $exception->getCode();
 			$reply->message = $exception->getMessage();
 		}
-	}
 	header("Content-type: application/json");
 	if($reply->data = null) {
 		unset($reply->data);

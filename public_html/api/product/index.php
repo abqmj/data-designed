@@ -7,9 +7,9 @@
 //require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 //require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use mjordan30\public_html\datadesigned\{
-	Product
+	Product,
 	// we only use profile class for testing purposes?
-	// Profile
+	Profile
 };
 // verify the session is lit
 if(session_status() !== PHP_SESSION_ACTIVE) {
@@ -21,7 +21,7 @@ $reply->status = 200;
 $reply->data = null;
 try {
 	// get the mysql connection
-	//$pdo = connectioToEncryptedMySql("ini goes here");
+	$pdo = connectioToEncryptedMySql("ini goes here");
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 	// sanitize input
@@ -42,16 +42,6 @@ try {
 			if($product !== null) {
 				$reply->data = $product;
 			}
-		}
-		/**
-		 * i dont have a productprofileid>?
-		 **/
-		//else if(empty($product) === false) {
-			//$product = Product::getProductByProductProfileId($pdo, $productProfileId)->toArray();
-			//if($product !== null) {
-				//$reply->data = $product;
-			//}
-		//
 		} else if(empty($productContent) === false) {
 			$products = Product::getProductByProductContent($pdo, $productContent)->toArray();
 			if($products !== null) {
@@ -133,7 +123,7 @@ try {
 		throw (new InvalidArgumentException("Invalid HTTP method request"));
 }
 // update the $reply->status $reply->message
-}catch(\Exception | \TypeError $exception) {
+} catch(\Exception | \TypeError $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
 }
