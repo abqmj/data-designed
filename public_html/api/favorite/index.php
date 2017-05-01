@@ -43,13 +43,13 @@ try {
 				$reply->data = $favorite;
 			}
 			// if none of the search parameters are met throw an exception
-	} else If(empty($favoriteProfileId) === false) {
-		$favorite = Favorite::getFavoriteByFavoriteProfileId($pdo, $favoriteProfileId)->toArray();
-		if($favorite !== null) {
-			$reply->data = $favorite;
-			
-		}
-		// get all the favorites associated with the product Id
+		} else If(empty($favoriteProfileId) === false) {
+			$favorite = Favorite::getFavoriteByFavoriteProfileId($pdo, $favoriteProfileId)->toArray();
+			if($favorite !== null) {
+				$reply->data = $favorite;
+
+			}
+			// get all the favorites associated with the product Id
 		} else if(empty($favoriteProductId) === false) {
 			$favorite = Favorite::getFavoriteByFavoriteProductId($pdo, $favoriteProductId)->toArray();
 			if($favorite !== null) {
