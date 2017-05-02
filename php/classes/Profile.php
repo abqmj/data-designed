@@ -128,7 +128,7 @@ class Profile implements \JsonSerializable {
 	 *
 	 * @return string value of the ProfileActivationToken
 	 */
-	public function getProfileActivationToken(): string {
+	public function getProfileActivationToken(): ?string {
 		return ($this->profileActivationToken);
 	}
 
